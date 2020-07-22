@@ -1,1 +1,2 @@
-# A prototype to check if I can create a tool to make notes (for DND) on fantasy maps. Using leaflet and Svelte. Map found at: [reddit](https://www.reddit.com/r/wonderdraft/comments/fuxyw0/quarentine_made_me_go_kind_of_crazy_35_hours/) by user u/Scaphitid-Ammonite
+# Fantasy map tool 
+A prototype to check if I can create a tool to make notes (for DND) on fantasy maps. Using leaflet and Svelte. Map found at: [reddit](https://www.reddit.com/r/wonderdraft/comments/fuxyw0/quarentine_made_me_go_kind_of_crazy_35_hours/) by user u/Scaphitid-Ammonite
