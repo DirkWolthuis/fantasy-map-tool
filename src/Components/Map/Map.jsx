@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { CRS } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { Map as LeafletMap, ImageOverlay } from "react-leaflet";
-import CustomMarker from "./CustomMarker";
+import CustomMarkers from "./CustomMarkers";
 const DEFAULT_VIEWPORT = {
   center: [1500, 2500],
   zoom: 0,
@@ -32,7 +32,7 @@ const Map = () => {
           [3000, 5000],
         ]}
       />
-      <CustomMarker />
+      <CustomMarkers />
     </LeafletMap>
   );
 };
