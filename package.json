@@ -2,11 +2,16 @@
   "name": "react",
   "version": "0.1.0",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.30",
+    "@fortawesome/free-solid-svg-icons": "^5.14.0",
+    "@fortawesome/react-fontawesome": "^0.1.11",
     "@fullhuman/postcss-purgecss": "^2.3.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "@xstate/react": "^0.8.1",
     "autoprefixer": "^9.8.4",
+    "classnames": "^2.2.6",
     "leaflet": "^1.6.0",
     "npm-run-all": "^4.1.5",
     "postcss-cli": "^7.1.1",
@@ -14,8 +19,10 @@
     "react-dom": "^16.13.1",
     "react-leaflet": "^2.7.0",
     "react-scripts": "3.4.1",
+    "reusable": "^1.0.1",
     "styled-components": "^5.1.1",
-    "tailwindcss": "^1.4.6"
+    "tailwindcss": "^1.4.6",
+    "xstate": "^4.11.0"
   },
   "scripts": {
     "build:tailwind": "postcss src/tailwind.css -o src/tailwind.generated.css",

@@ -3,10 +3,13 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "./tailwind.generated.css";
+import { ReusableProvider } from "reusable";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ReusableProvider>
+      <App />
+    </ReusableProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

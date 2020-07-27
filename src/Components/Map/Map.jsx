@@ -21,7 +21,7 @@ const Map = () => {
       ref={ref}
       minZoom={-2}
       maxZoom={0}
-      className="h-screen"
+      className="z-0 h-screen"
       crs={CRS.Simple}
       viewport={DEFAULT_VIEWPORT}
     >
