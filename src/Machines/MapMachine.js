@@ -51,6 +51,21 @@ export const mapMachine = Machine({
             ],
           }),
         },
+        MOVE_MARKER: {
+          actions: assign({
+            markers: (context, event) =>
+              context.markers.map((marker) => {
+                if (marker.id === event.payload.id) {
+                  return {
+                    ...marker,
+                    position: event.payload.position,
+                  };
+                } else {
+                  return marker;
+                }
+              }),
+          }),
+        },
       },
     },
     layers: {

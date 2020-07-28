@@ -6,7 +6,7 @@ import { useMapMachine } from "../../Stores/useMapMachine";
 const CustomMarkers = () => {
   const [state, send] = useMapMachine();
   const { markers } = state.context;
-
+  console.log(state);
   const [zoom, setZoom] = useState(0 - 1);
 
   const { map } = useLeaflet();
@@ -18,27 +18,14 @@ const CustomMarkers = () => {
 
   // const updateZoom = (map) => setZoom(map.target.getZoom() - 1);
 
-  useEffect(() => {
-    if (state.matches("markers")) {
-      map.on("click", clickMap);
-      // map.on("move", moveMarker);
-    } else {
-      map.off("click", clickMap);
-      // map.on("move", moveMarker);
-    }
-
-    return () => {
-      map.off("click", clickMap);
-      // map.off("move", moveMarker);
-    };
-  }, [map, state]);
-
-  const clickMap = (event) => {
-    send({ type: "ADD_MARKER", payload: [event.latlng.lat, event.latlng.lng] });
-  };
-
   const moveMarker = (event) => {
-   console.log(event)
+    send({
+      type: "MOVE_MARKER",
+      payload: {
+        id: event.target.options.markerId,
+        position: [event.target.getLatLng().lat, event.target.getLatLng().lng],
+      },
+    });
   };
 
   const markerFactory = (text) =>
@@ -55,7 +42,10 @@ const CustomMarkers = () => {
     <>
       {markers.map((marker) => (
         <Marker
+          markerId={marker.id}
+          onDragend={moveMarker}
           key={marker.id}
+          draggable={state.matches("markers")}
           icon={markerFactory(marker.text)}
           position={marker.position}
         >
