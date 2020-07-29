@@ -23,7 +23,7 @@ const CustomMarkers = () => {
       type: "MOVE_MARKER",
       payload: {
         id: event.target.options.markerId,
-        lat: event.target.getLatLng().lat, 
+        lat: event.target.getLatLng().lat,
         lng: event.target.getLatLng().lng,
       },
     });
@@ -39,29 +39,36 @@ const CustomMarkers = () => {
       iconSize: [500, 100],
     });
 
+  const clickMarker = (e) => {
+    const id = e.target.options.markerId;
+    if (state.matches("map.navigation")) {
+      send({ type: "OPEN_CONTENT_PANE", payload: id });
+    }
+  };
+
   return (
     <>
       {markers.map((marker) => (
         <Marker
+          onClick={clickMarker}
           markerId={marker.id}
           onDragend={moveMarker}
           key={marker.id}
           draggable={state.matches("map.markers")}
           icon={markerFactory(marker.title)}
           position={[marker.lat, marker.lng]}
-        >
-          {state.matches("map.navigation") && (
-            <Popup>
-              {zoom}
-              A pretty CSS3 popup.
-              <br />
-              Easily customizable.
-            </Popup>
-          )}
-        </Marker>
+        ></Marker>
       ))}
     </>
   );
 };
 
 export default CustomMarkers;
+// {state.matches("map.navigation") && (
+//   <Popup>
+//     {zoom}
+//     A pretty CSS3 popup.
+//     <br />
+//     Easily customizable.
+//   </Popup>
+// )}

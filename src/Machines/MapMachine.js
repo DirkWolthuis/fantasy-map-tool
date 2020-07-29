@@ -9,6 +9,29 @@ export const mapMachine = Machine({
     markers: [],
   },
   states: {
+    contentPane: {
+      initial: "closed",
+      states: {
+        opened: {
+          on: {
+            CLOSE_CONTENT_PANE: {
+              target: "closed",
+            },
+          },
+        },
+        closed: {
+          on: {
+            OPEN_CONTENT_PANE: {
+              target: "opened",
+              actions: assign({
+                selectedMarkerId: (context, event) => event.payload,
+              }),
+            },
+          },
+        },
+      },
+    },
+
     map: {
       initial: "navigation",
       on: {
