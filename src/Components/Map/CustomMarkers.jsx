@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLeaflet, Popup, Marker } from "react-leaflet";
 import { DivIcon } from "leaflet";
 import { useMapMachine } from "../../Stores/useMapMachine";
@@ -6,7 +6,7 @@ import { useMapMachine } from "../../Stores/useMapMachine";
 const CustomMarkers = () => {
   const [state, send] = useMapMachine();
   const { markers } = state.context;
-  console.log(state);
+
   const [zoom, setZoom] = useState(0 - 1);
 
   const { map } = useLeaflet();
@@ -23,7 +23,8 @@ const CustomMarkers = () => {
       type: "MOVE_MARKER",
       payload: {
         id: event.target.options.markerId,
-        position: [event.target.getLatLng().lat, event.target.getLatLng().lng],
+        lat: event.target.getLatLng().lat, 
+        lng: event.target.getLatLng().lng,
       },
     });
   };
@@ -45,16 +46,18 @@ const CustomMarkers = () => {
           markerId={marker.id}
           onDragend={moveMarker}
           key={marker.id}
-          draggable={state.matches("markers")}
-          icon={markerFactory(marker.text)}
-          position={marker.position}
+          draggable={state.matches("map.markers")}
+          icon={markerFactory(marker.title)}
+          position={[marker.lat, marker.lng]}
         >
-          {/* <Popup>
-            {zoom}
-            A pretty CSS3 popup.
-            <br />
-            Easily customizable.
-          </Popup> */}
+          {state.matches("map.navigation") && (
+            <Popup>
+              {zoom}
+              A pretty CSS3 popup.
+              <br />
+              Easily customizable.
+            </Popup>
+          )}
         </Marker>
       ))}
     </>

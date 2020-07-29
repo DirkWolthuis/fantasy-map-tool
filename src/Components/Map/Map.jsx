@@ -21,10 +21,10 @@ const Map = () => {
   }, [ref]);
 
   const clickMap = (event) => {
-    if (state.matches("markers")) {
+    if (state.matches("map.markers")) {
       send({
         type: "ADD_MARKER",
-        payload: [event.latlng.lat, event.latlng.lng],
+        payload: { lat: event.latlng.lat, lng: event.latlng.lng },
       });
     }
   };

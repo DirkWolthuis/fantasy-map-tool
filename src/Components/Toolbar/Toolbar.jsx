@@ -23,8 +23,8 @@ const Toolbar = () => {
             "w-12": true,
             "rounded-full": true,
             "mb-3": true,
-            "bg-white": !state.matches("navigation"),
-            "bg-black text-white": state.matches("navigation"),
+            "bg-white": !state.matches("map.navigation"),
+            "bg-black text-white": state.matches("map.navigation"),
             shadow: true,
           })}
         >
@@ -37,8 +37,8 @@ const Toolbar = () => {
             "w-12": true,
             "rounded-full": true,
             "mb-3": true,
-            "bg-white": !state.matches("markers"),
-            "bg-black text-white": state.matches("markers"),
+            "bg-white": !state.matches("map.markers"),
+            "bg-black text-white": state.matches("map.markers"),
             shadow: true,
           })}
         >
@@ -51,8 +51,8 @@ const Toolbar = () => {
             "w-12": true,
             "rounded-full": true,
             "mb-3": true,
-            "bg-white": !state.matches("layers"),
-            "bg-black text-white": state.matches("layers"),
+            "bg-white": !state.matches("map.layers"),
+            "bg-black text-white": state.matches("map.layers"),
             shadow: true,
           })}
         >

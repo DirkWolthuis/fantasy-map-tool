@@ -1,77 +1,64 @@
 import { Machine } from "xstate";
 import { assign } from "xstate";
+import { marker } from "../Entities/Marker";
 
 export const mapMachine = Machine({
   id: "map",
-  initial: "navigation",
+  type: "parallel",
   context: {
-    markers: [
-      // {
-      //   id: 1,
-      //   position: [1500, 2500],
-      //   text: "Test marker",
-      // },
-      // {
-      //   id: 2,
-      //   position: [1650, 2500],
-      //   text: "Test marker",
-      // },
-      // {
-      //   id: 3,
-      //   position: [1750, 2500],
-      //   text: "Test marker",
-      // },
-      // {
-      //   id: 4,
-      //   position: [1730, 2500],
-      //   text: "Test marker",
-      // },
-    ],
+    markers: [],
   },
   states: {
-    navigation: {
+    map: {
+      initial: "navigation",
       on: {
-        TO_MARKERS: "markers",
-        TO_LAYERS: "layers",
-      },
-    },
-    markers: {
-      on: {
-        TO_NAVIGATION: "navigation",
-        TO_LAYERS: "layers",
-        ADD_MARKER: {
-          actions: assign({
-            markers: (context, event) => [
-              ...context.markers,
-              {
-                id: 5,
-                position: event.payload,
-                text: "Hello",
-              },
-            ],
-          }),
+        LOAD_CONTEXT_FROM_STORAGE: {
+          actions: assign((context, event) => ({ ...event.payload })),
         },
-        MOVE_MARKER: {
-          actions: assign({
-            markers: (context, event) =>
-              context.markers.map((marker) => {
-                if (marker.id === event.payload.id) {
-                  return {
-                    ...marker,
-                    position: event.payload.position,
-                  };
-                } else {
-                  return marker;
-                }
+      },
+      states: {
+        navigation: {
+          on: {
+            TO_MARKERS: "markers",
+            TO_LAYERS: "layers",
+          },
+        },
+        markers: {
+          on: {
+            TO_NAVIGATION: "navigation",
+            TO_LAYERS: "layers",
+            ADD_MARKER: {
+              actions: assign({
+                markers: (context, event) => [
+                  ...context.markers,
+                  new marker(event.payload.lat, event.payload.lng),
+                ],
               }),
-          }),
+            },
+            MOVE_MARKER: {
+              actions: assign({
+                markers: (context, event) =>
+                  context.markers.map((marker) => {
+                    if (marker.id === event.payload.id) {
+                      return {
+                        ...marker,
+                        lat: event.payload.lat,
+                        lng: event.payload.lng,
+                      };
+                    } else {
+                      return marker;
+                    }
+                  }),
+              }),
+            },
+          },
         },
-      },
-    },
-    layers: {
-      on: {
-        TO_NAVIGATION: "navigation",
-        TO_MARKERS: "markers",
+        layers: {
+          on: {
+            TO_NAVIGATION: "navigation",
+            TO_MARKERS: "markers",
+          },
+        },
       },
     },
   },
