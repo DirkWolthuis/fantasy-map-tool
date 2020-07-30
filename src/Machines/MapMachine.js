@@ -13,8 +13,47 @@ export const mapMachine = Machine({
       initial: "closed",
       states: {
         opened: {
+          initial: "view",
+          states: {
+            view: {
+              on: {
+                EDIT_CONTENT: "edit",
+              },
+            },
+            edit: {
+              on: {
+                VIEW_CONTENT: "view",
+                SAVE_CONTENT: {
+                  actions: assign({
+                    markers: (context, event) =>
+                      context.markers.map((marker) => {
+                        if (marker.id === event.payload.id) {
+                          return {
+                            ...marker,
+                            content: event.payload.content,
+                            title: event.payload.title,
+                          };
+                        } else {
+                          return marker;
+                        }
+                      }),
+                  }),
+                  target: "view",
+                },
+              },
+            },
+          },
           on: {
             CLOSE_CONTENT_PANE: {
+              target: "closed",
+            },
+            DELETE_MARKER: {
+              actions: assign({
+                markers: (context, event) =>
+                  context.markers.filter(
+                    (marker) => marker.id !== event.payload.id
+                  ),
+              }),
               target: "closed",
             },
           },
