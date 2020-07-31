@@ -56,6 +56,12 @@ export const mapMachine = Machine({
               }),
               target: "closed",
             },
+            OPEN_CONTENT_PANE: {
+              target: "opened",
+              actions: assign({
+                selectedMarkerId: (context, event) => event.payload,
+              }),
+            },
           },
         },
         closed: {
