@@ -23,17 +23,9 @@ jobs:
     - name: checkout
       uses: actions/checkout@v2
 
-    - name: building
-      uses: actions/setup-node@v1
-      with:
-        node-version: '12'
-        
-    -  run: npm install
-    -  run: npm build
-
     - name: Build and Publish head Docker image
       uses: VaultVulp/gp-docker-action@1.1.6
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }} # Provide GITHUB_TOKEN to login into the GitHub Packages
-        image-name: my-cool-service # Provide only Docker image name
-        extract-git-tag: true # Provide flag to extract Docker image tag from git reference
+        image-name: ${{GITHUB_SHA}} # Provide only Docker image name
+        dockerfile: Dockerfile
