@@ -13,7 +13,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build-and-publish-head:
+  build-publish-deploy:
     runs-on: ubuntu-16.04
 
     steps:
@@ -24,4 +24,8 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }} # Provide GITHUB_TOKEN to login into the GitHub Packages
           image-name: react # Provide Docker image name
-          image-tag: ${{ github.sha }} # Provide Docker image tag
+          image-tag: latest # Provide Docker image tag
+      - name: portainer webhook
+        uses: enflo/curl-action@master
+        with:
+          curl: -XPOST {{secrets.PORTAINER_WEBHOOK}}
