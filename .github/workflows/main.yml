@@ -28,4 +28,4 @@ jobs:
       - name: portainer webhook
         uses: enflo/curl-action@master
         with:
-          curl: -XPOST {{secrets.PORTAINER_WEBHOOK}}
+          curl: -XPOST ${{secrets.PORTAINER_WEBHOOK}}
