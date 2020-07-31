@@ -23,5 +23,5 @@ jobs:
         uses: VaultVulp/gp-docker-action@1.1.6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }} # Provide GITHUB_TOKEN to login into the GitHub Packages
-          image-name: fantasy-map-tool-react # Provide Docker image name
+          image-name: react # Provide Docker image name
           image-tag: ${{ github.sha }} # Provide Docker image tag
