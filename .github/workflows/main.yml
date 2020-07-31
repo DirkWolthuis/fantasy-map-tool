@@ -13,14 +13,13 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build-and-publish-head:
-    runs-on: self-hosted
-    #if: github.ref == 'refs/heads/develop' # Running this job only for develop branch
+  build:
+    runs-on: ubuntu-16.04
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+      - run: ls -lah
       - uses: docker/build-push-action@v1
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
